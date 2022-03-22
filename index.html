@@ -17,7 +17,52 @@
       <h1>Ticket Tracking System</h1>
       <section class="jumbotron">
         <h3>Add New Issue:</h3>
-        <form action="" id="issueInputForm"></form>
+        <form action="" id="issueInputForm">
+          <div class="form-group">
+            <label for="issueSubInput">Subject</label>
+            <input
+              type="text"
+              class="form-control"
+              id="issueSubInput"
+              placeholder="Issue Subject..."
+            />
+          </div>
+          <div class="form-group">
+            <label for="issueDescInput">Description</label>
+            <input
+              type="text"
+              class="form-control"
+              id="issueDescInput"
+              placeholder="Issue Description..."
+            />
+          </div>
+          <div class="form-group">
+            <label for="issueSeverityInput">Severity</label>
+            <select type="select" class="form-control" id="issueSeverityInput">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="issueAssignedToInput">Person Assigned</label>
+            <input
+              type="text"
+              class="form-control"
+              id="issueAssignedToInput"
+              placeholder="Enter Person Responsible..."
+            />
+          </div>
+          <button type="submit" class="btn btn-info">Add</button>
+        </form>
+      </section>
+
+      <section class="row">
+        <div class="col-lg-12">
+          <div id="issuesList">
+            <!--This will be populated by JS-->
+          </div>
+        </div>
       </section>
     </section>
 
