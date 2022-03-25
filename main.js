@@ -4,19 +4,36 @@ document.getElementById("issueInputForm").addEventListener("submit", saveIssue);
 function fetchIssues() {
   let issues = JSON.parse(localStorage.getItem("issues")); //grab local storage item
   let issuesList = document.getElementById("issuesList");
+  console.log(issues);
 
   issuesList.innerHTML = "";
 
   for (let i = 0; i < issues.length; i++) {
-    let id = issues[id].id;
-    let subject = issues[id].subject;
-    let description = issues[id].description;
-    let severity = issues[id].severity;
-    let assignedTo = issues[id].assignedTo;
-    let status = issues[id].status;
-    let statusColor = status === "closed" ? "label-success" : "label-info";
+    let id = issues[i].id;
+    let subject = issues[i].subject;
+    let description = issues[i].description;
+    let severity = issues[i].severity;
+    let assignedTo = issues[i].assignedTo;
+    let status = issues[i].status;
+    let statusColor = status === "closed" ? "label-success" : "label-danger";
 
-    // issuesList.innerHTML +=
+    issuesList.innerHTML +=
+      '<div class="well">' +
+      "<h6>Issue ID:" +
+      id +
+      "</h6>" +
+      '<p><span class="label ' +
+      statusColor +
+      ' ">' +
+      status +
+      "</span></p>" +
+      "<h3>" +
+      subject +
+      "</h3>" +
+      "<p>" +
+      description +
+      "</p>" +
+      "</div>";
   }
 }
 
@@ -29,6 +46,7 @@ function saveIssue(e) {
   let issueStatus = "Open";
 
   let issue = {
+    //package form data into an object
     id: issueId,
     subject: issueSubject,
     description: issueDesc,
