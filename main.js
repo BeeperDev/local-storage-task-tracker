@@ -33,6 +33,18 @@ function fetchIssues() {
       "<p>" +
       description +
       "</p>" +
+      '<p><span class="glyphicon glyphicon-time"></span>' +
+      severity +
+      " " +
+      "<span class='glyphicon glyphicon-user'></span>" +
+      assignedTo +
+      "</p>" +
+      '<a href="#" class="btn btn-warning" onclick="setStatusClosed(\'' +
+      id +
+      "')\">Close</a> " +
+      '<a href="#" class="btn btn-danger" onclick="deleteIssue(\'' +
+      id +
+      "')\">Delete</a> " +
       "</div>";
   }
 }
@@ -71,4 +83,30 @@ function saveIssue(e) {
   fetchIssues();
 
   e.preventDefault(); // stop button from trying anything we don't want it to do.
+}
+
+function setStatusClosed(id) {
+  let issues = JSON.parse(localStorage.getItem("issues"));
+  for (let i = 0; i < issues.length; i++) {
+    if (issues[i].id === id) {
+      issues[i].status = "Closed";
+    }
+  }
+
+  localStorage.setItem("issues", JSON.stringify(issues));
+
+  fetchIssues();
+}
+
+function deleteIssue(id) {
+  let issues = JSON.parse(localStorage.getItem("issues"));
+  for (let i = 0; i < issues.length; i++) {
+    if (issues[i].id === id) {
+      issues.splice(i, 1);
+    }
+  }
+
+  localStorage.setItem("issues", JSON.stringify(issues));
+
+  fetchIssues();
 }
