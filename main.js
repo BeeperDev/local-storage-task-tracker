@@ -15,7 +15,7 @@ function fetchIssues() {
     let severity = issues[i].severity;
     let assignedTo = issues[i].assignedTo;
     let status = issues[i].status;
-    let statusColor = status === "closed" ? "label-success" : "label-danger";
+    let statusColor = status == "Closed" ? "label-success" : "label-danger";
 
     issuesList.innerHTML +=
       '<div class="well">' +
@@ -34,9 +34,11 @@ function fetchIssues() {
       description +
       "</p>" +
       '<p><span class="glyphicon glyphicon-time"></span>' +
+      " " +
       severity +
       " " +
       "<span class='glyphicon glyphicon-user'></span>" +
+      " " +
       assignedTo +
       "</p>" +
       '<a href="#" class="btn btn-warning" onclick="setStatusClosed(\'' +
@@ -93,16 +95,18 @@ function setStatusClosed(id) {
     }
   }
 
-  localStorage.setItem("issues", JSON.stringify(issues));
+  localStorage.setItem("issues", JSON.stringify(issues)); // reload list
 
   fetchIssues();
 }
 
 function deleteIssue(id) {
-  let issues = JSON.parse(localStorage.getItem("issues"));
+  let issues = JSON.parse(localStorage.getItem("issues")); // full list of issues from storage
   for (let i = 0; i < issues.length; i++) {
+    // loop through issues array
     if (issues[i].id === id) {
-      issues.splice(i, 1);
+      // find issue with matching id
+      issues.splice(i, 1); // take out the array item at specific index
     }
   }
 
