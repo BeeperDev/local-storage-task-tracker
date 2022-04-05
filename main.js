@@ -17,37 +17,74 @@ function fetchIssues() {
     let status = issues[i].status;
     let statusColor = status == "Closed" ? "label-success" : "label-danger";
 
-    issuesList.innerHTML +=
-      '<div class="well">' +
-      "<h6>Issue ID:" +
-      id +
-      "</h6>" +
-      '<p><span class="label ' +
-      statusColor +
-      ' ">' +
-      status +
-      "</span></p>" +
-      "<h3>" +
-      subject +
-      "</h3>" +
-      "<p>" +
-      description +
-      "</p>" +
-      '<p><span class="glyphicon glyphicon-time"></span>' +
-      " " +
-      severity +
-      " " +
-      "<span class='glyphicon glyphicon-user'></span>" +
-      " " +
-      assignedTo +
-      "</p>" +
-      '<a href="#" class="btn btn-warning" onclick="setStatusClosed(\'' +
-      id +
-      "')\">Close</a> " +
-      '<a href="#" class="btn btn-danger" onclick="deleteIssue(\'' +
-      id +
-      "')\">Delete</a> " +
-      "</div>";
+    if (status == "Closed") {
+      issuesList.innerHTML +=
+        '<div class="well">' +
+        "<h6>Issue ID:" +
+        id +
+        "</h6>" +
+        '<p><span class="label ' +
+        statusColor +
+        ' ">' +
+        status +
+        "</span></p>" +
+        "<h3>" +
+        subject +
+        "</h3>" +
+        "<p>" +
+        description +
+        "</p>" +
+        '<p><span class="glyphicon glyphicon-time"></span>' +
+        " " +
+        severity +
+        " " +
+        "<span class='glyphicon glyphicon-user'></span>" +
+        " " +
+        assignedTo +
+        "</p>" +
+        '<a href="#" class="btn btn-info" onclick="setStatusReopen(\'' +
+        id +
+        "')\">Reopen</a> " +
+        '<a href="#" class="btn btn-warning" onclick="setStatusClosed(\'' +
+        id +
+        "')\">Close</a> " +
+        '<a href="#" class="btn btn-danger" onclick="deleteIssue(\'' +
+        id +
+        "')\">Delete</a> " +
+        "</div>";
+    } else {
+      issuesList.innerHTML +=
+        '<div class="well">' +
+        "<h6>Issue ID:" +
+        id +
+        "</h6>" +
+        '<p><span class="label ' +
+        statusColor +
+        ' ">' +
+        status +
+        "</span></p>" +
+        "<h3>" +
+        subject +
+        "</h3>" +
+        "<p>" +
+        description +
+        "</p>" +
+        '<p><span class="glyphicon glyphicon-time"></span>' +
+        " " +
+        severity +
+        " " +
+        "<span class='glyphicon glyphicon-user'></span>" +
+        " " +
+        assignedTo +
+        "</p>" +
+        '<a href="#" class="btn btn-warning" onclick="setStatusClosed(\'' +
+        id +
+        "')\">Close</a> " +
+        '<a href="#" class="btn btn-danger" onclick="deleteIssue(\'' +
+        id +
+        "')\">Delete</a> " +
+        "</div>";
+    }
   }
 }
 
@@ -87,6 +124,17 @@ function saveIssue(e) {
   e.preventDefault(); // stop button from trying anything we don't want it to do.
 }
 
+function setStatusReopen(id) {
+  let issues = JSON.parse(localStorage.getItem("issues"));
+  for (let i = 0; i < issues.length; i++) {
+    if (issues[i].id === id) {
+      issues[i].status = "Open";
+    }
+  }
+  localStorage.setItem("issues", JSON.stringify(issues)); // reload list
+  fetchIssues();
+}
+
 function setStatusClosed(id) {
   let issues = JSON.parse(localStorage.getItem("issues"));
   for (let i = 0; i < issues.length; i++) {
@@ -96,7 +144,6 @@ function setStatusClosed(id) {
   }
 
   localStorage.setItem("issues", JSON.stringify(issues)); // reload list
-
   fetchIssues();
 }
 
@@ -111,6 +158,5 @@ function deleteIssue(id) {
   }
 
   localStorage.setItem("issues", JSON.stringify(issues));
-
   fetchIssues();
 }
