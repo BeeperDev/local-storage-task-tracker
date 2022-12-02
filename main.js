@@ -45,7 +45,7 @@ function fetchIssues() {
         '<a href="#" class="btn btn-info" onclick="setStatusReopen(\'' +
         id +
         "')\">Reopen</a> " +
-        '<a href="#" class="btn btn-warning" onclick="setStatusClosed(\'' +
+        '<a href="#" class="btn btn-danger" onclick="setStatusClosed(\'' +
         id +
         "')\">Delete</a> " +
         "</div>";
